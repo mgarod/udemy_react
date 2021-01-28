@@ -1,0 +1,35 @@
+# codepen.io
+# Use Babel, apply react and react-dom libraries
+
+# HTML
+<div id="app"></div>
+
+# CSS
+.person {
+  display: inline-block;
+  margin: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 2px #ccc;
+  width: 200px;
+  padding: 20px;
+}
+
+
+# JS
+function Person(props){
+  return (
+    <div className="person">
+      <h1>Name: {props.name}</h1>
+      <p>Age: {props.age}</p>
+    </div>
+  );
+}
+
+var app = (
+<div>
+  <Person name="Mike" age="31" />
+  <Person name="John" age="25" />
+</div>
+);
+
+ReactDOM.render(app, document.querySelector('#app'));
