@@ -1,1 +1,4 @@
 JSX can only have 1 root element
+
+css-modules for scoped css files
+import classes from 'file.css'
