@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import classes from './App.module.css';
-import Person from '../components/Persons/Person/Person.js'
-
+// import Person from '../components/Persons/Person/Person.js'
+import Persons from '../components/Persons/Persons'
+import Cockpit from '../components/Cockpit/Cockpit'
 
 class App extends Component {
   state = {
@@ -14,52 +15,32 @@ class App extends Component {
     string: ""
   };
 
-  togglePersonsHandler = () => {
-    const doesShow = this.state.showPersons
-    this.setState({showPersons: !doesShow})
-  };
-
   render() {
     let persons = null;
-    let btnClass = '';
-
+    
     if (this.state.showPersons) {
-      persons = (
-        <div>
-          {this.state.persons.map((p, i) => {
-            return <Person
-              click={this.deletePersonHandler.bind(i)}
-              name={p.name}
-              age={p.age}
-              key={p.id}
-              changed={(event) => this.nameChangedHandler(event, p.id)} />
-          })}
-        </div>
-      );
-
-      btnClass = classes.Red;
+      persons = <Persons
+                  persons={this.state.persons}
+                  clicked={this.deletePersonHandler}
+                  changed={this.nameChangedHandler} />;
     }
-
-    let assignedClasses = [];
-    if (this.state.persons.length <= 2) {
-      assignedClasses.push(classes.red)
-    }
-    if (this.state.persons.length <= 1) {
-      assignedClasses.push(classes.bold)
-    }
-
+    
     return (
       <div className={classes.App}>
-        <h1>Hi I'm a react app</h1>
-        <p className={assignedClasses.join(' ')}>This is really working!</p>
-        <button className={btnClass}
-          onClick={this.togglePersonsHandler}>Toggle Persons
-        </button>
+        <Cockpit
+          showPersons={this.state.showPersons}
+          clicked={this.togglePersonsHandler}
+          persons={this.state.persons} />
         {persons}
       </div>
     );
   }
-
+  
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons
+    this.setState({showPersons: !doesShow})
+  };
+  
   deletePersonHandler = (index) => {
     // const persons = this.state.persons.slice();  Deep copy
     const persons = [...this.state.persons];
